@@ -12,6 +12,11 @@ palette_1 = sns.color_palette('hls',8)
 palette_2 = sns.color_palette("Paired", 9)[1:]
 
 def show_rateplot(df, criteria):
+    """
+    show_rateplot function : 특정 플레이 시간에 대해 오브젝트별 승률에 대한 barplot visualization
+    Input Arguments : df(dataframe : 알고자하는 시간의 df), criteria(str : barplot의 title)
+    return barplot
+    """
     rate_data = {"name": [], "rate": []}
     for col in df.columns:
         if df[col].dtype == "bool":
@@ -38,6 +43,11 @@ def show_rateplot(df, criteria):
 
 
 def preprocess_participant(df):
+    """
+    preprocess_participant function : participant_df의 비정상적으로 플레이 된 데이터를 삭제하는 함수
+    Input Arguments : None
+    return preprocessed participant_df
+    """
     del_idx_1 = df[df['firstbloodkill'].isna()].index
     df.drop(index=del_idx_1, inplace=True)
 
@@ -60,6 +70,13 @@ def preprocess_participant(df):
 
 
 def recommendation_obj(df, target, duration1, duration2=None):
+    """
+    recommendation_obj function : 특정 오브젝트 관여에 대한 포지션별 비율 및
+                                  각 포지션에 대한 TOP2 챔피언 정보를 제공해주는 함수
+    Input Arguments : df(dataframe), target(str : 특정 오브젝트 이름)
+                     , duration1(int : start time), duration2(int : end time)
+    return 포지션별 관여율, 각 포지션별 TOP2 챔피언
+    """
     if (duration1 == 1200) & (duration2 is None):
         datas = df[(df['win'] == True) & (df[target] == True) & (df['gameduration'] < duration1)]
     elif (duration1 == 2400) & (duration2 is None):
@@ -83,6 +100,10 @@ def recommendation_obj(df, target, duration1, duration2=None):
 
 
 def show_label_plot(df, target_ls, palette=palette_2):
+    """
+    show_label_plot function : 군집별 특정 변수에 통계값(median)에 대한 barplot visualization
+    Input Arguments : df(dataframe), target_ls(list)
+    """
     plt.figure(figsize=(20, 4))
     
     plt.subplot(141)
@@ -118,6 +139,11 @@ def show_label_plot(df, target_ls, palette=palette_2):
 
 
 def show_rank_label(df, target):
+    """
+    show_rank_label function : 특정 변수에 대해 Best, Worst TOP2의 군집을 보여주는 함수
+    Input Arguments : df(dataframe), target(str)
+    return TOP2 Cluster of Best, Worst
+    """
     high = {'label': [], 'value': []}
     low = {'label': [], 'value': []}
     for idx, row in df.iterrows():
@@ -152,8 +178,13 @@ def show_rank_label(df, target):
 
 
 def show_champion_label(df, extract_one=None):
+    """
+    show_champion_label function : 군집별 픽률이 높은 TOP3 챔피언을 보여주는 함수
+    Input Arguments : df(dataframe), extract_one(default : None)
+    """
     datas = df.groupby(['label', 'championid']).size().reset_index(name='count')
     
+    # 한 개의 변수에 대해서만 챔피언 정보를 알고 싶을 때 extract_one에 특정 군집의 번호를 입력
     if not extract_one is None:
         data = datas[datas['label'] == extract_one].sort_values('count', ascending=False).reset_index(drop=True)
         data['rate'] = np.round((data['count'] / np.sum(data['count']))*100, 2)
@@ -161,6 +192,7 @@ def show_champion_label(df, extract_one=None):
 
         print(f'Cluster_{extract_one} 중 Pick Rate TOP3 >> {data.loc[0]["championid"]}({data.loc[0]["rate"]}%), \
 {data.loc[1]["championid"]}({data.loc[1]["rate"]}%), {data.loc[2]["championid"]}({data.loc[2]["rate"]}%)')
+    # 일반적으로 모든 군집에 대한 TOP3 챔피언 정보 제공
     else:
         for label in datas['label'].unique():
         
