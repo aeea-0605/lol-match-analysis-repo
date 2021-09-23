@@ -78,7 +78,6 @@
 ---
 ---
 ## 2. 결론
-<br/>
 
 ### **2-1. <모델 1>에 대한 분석 결과**
 
@@ -103,14 +102,16 @@ rate(%) = 특정 오브젝트를 선점하고 이긴 팀 수(win) / 특정 오�
 - 가장 중요한 오브젝트는 억제기이며, 기준에 따라 중요도순이 달라진다.
 - 플레이 시간이 증가함에 따라 오브젝트 선점여부에 관한 중요도는 점점 감소하며. 유저의 개인 능력에 따라 승패가 좌요된다는 것을 알 수 있다.
 
----
 <br/>
+
+---
 
 #### **2-1-2. 각 기준에서 오브젝트에 대해 가장 많이 기여한 포지션 및 TOP2  챔피언**
 - 분석에 사용한 데이터셋 : participant_df, participantextendedstat_df, team_df, champion_datas
 - 총 23개의 결과 중 2개를 샘플링하여 결과를 제공하였습니다.
 
 **< Sample 1 > : 20분 미만, 첫 억제기 파괴에 관여**
+
 <img width="500" alt="2-1-2_sample1" src="https://user-images.githubusercontent.com/80459520/133558650-c0274e97-f08a-4ea8-a5ab-f31df6c563da.png">
 
 - Rank 1. 서포터 (22.75%)
@@ -130,6 +131,7 @@ rate(%) = 특정 오브젝트를 선점하고 이긴 팀 수(win) / 특정 오�
 ```
 
 **< Sample 2 > : 20~30, 첫 타워 파괴에 관여**
+
 <img width="500" alt="2-1-2_sample2" src="https://user-images.githubusercontent.com/80459520/133559885-a9791375-7b96-417f-b771-65c9d97a9a90.png">
 
 - Rank 1. 정글 (23.34%)
@@ -149,10 +151,11 @@ rate(%) = 특정 오브젝트를 선점하고 이긴 팀 수(win) / 특정 오�
 ```
 > 2-1-2 인사이트
 - 플레이 시간대에 각각의 오브젝트를 선점하고 이긴 유저들의 데이터를 통해 포지션별 관여율과 각 포지션에서 픽률이 높은 챔피언에 대한 정보를 제공해줄 수 있다.
----
----
 
 <br/>
+
+---
+---
 
 ### **2-2. <모델 2>에 대한 분석 결과**
 - 분석에 사용한 데이터셋 : participant_df, participantextendedstat_df, team_df, la_mid_df
@@ -168,23 +171,28 @@ rate(%) = 특정 오브젝트를 선점하고 이긴 팀 수(win) / 특정 오�
     > HDBSCAN(min_cluster_size=5, gen_min_span_tree=True, min_samples=200, cluster_selection_epsilon=1.6, prediction_data=True)
 
 **<최종 모델에 대한 Clustering Visualization>**
+
 <img width="775" alt="2-2-1_1" src="https://user-images.githubusercontent.com/80459520/133562640-988608e8-68ba-42b6-bab5-82121f7a2042.png">
 
 - Noise datas(label= -1)를 제외했을 때, 총 0 ~ 7 까지의 8개의 군집 형성
 
 **<군집별 승리 빈도 및 승률>**
-<img width="1125" alt="2-2-1_2" src="https://user-images.githubusercontent.com/80459520/133563099-a1ea26df-2aa0-4379-b0df-014ee4415d78.png">
+
+<img width="700" alt="2-2-1_2" src="https://user-images.githubusercontent.com/80459520/133563099-a1ea26df-2aa0-4379-b0df-014ee4415d78.png">
 
 - 3(99.91%) > 0(99.64%) > 5(98.92%) > 4(93.51%) > 2(74.7%) > 1(50.37%) > 7(42.78%) > 6(9.04%)
 
 **<군집별 Feature Visualization>**
+
 <img width="721" alt="스크린샷 2021-09-16 오후 3 48 27" src="https://user-images.githubusercontent.com/80459520/133563893-a97e3cbe-cd25-4d70-8d01-628525edc748.png">
 
 **<각 Feature에 대한 BEST, WORST TOP2 군집 선정>**
+
 <img width="1022" alt="스크린샷 2021-09-16 오후 4 04 06" src="https://user-images.githubusercontent.com/80459520/133565740-127b9e23-2496-4439-952e-1270371d7cba.png">
 
----
 <br/>
+
+---
 
 #### **2-2-2. 군집별 픽률 TOP3 챔피언**
 ![2-2-2_1](https://user-images.githubusercontent.com/80459520/133569094-0da0fbc6-e922-4f3c-a543-4ebba3568ab9.png)
@@ -236,10 +244,10 @@ rate(%) = 특정 오브젝트를 선점하고 이긴 팀 수(win) / 특정 오�
     - WORST 1: - 
     - WORST 2: 골드획득, 포탑에 가한 피해량, CS수
 
----
----
-
 <br/>
+
+---
+---
 
 ### **2-3. OLS Logit Model을 통한 Feature Importance 분석**
 - 분석에 사용한 데이터셋 : la_mid_df
@@ -248,12 +256,14 @@ rate(%) = 특정 오브젝트를 선점하고 이긴 팀 수(win) / 특정 오�
 - 2-2와 동일하게 MID 데이터셋에 대해 모델링을 진행하였습니다.
 
 **<Best OLS Logic Model에 대한 Summary>**
+
 ![2-3-1](https://user-images.githubusercontent.com/80459520/133571058-4e45d281-17b9-46fe-8468-83a777d1db21.png)
 
 - 해당 모델에 대한 5번의 교차 검증 Accuracy : 84.6%
 - 20개의 독립변수들 모두 p-value가 0에 수렴하므로, 모든 독립변수가 종속변수(Win)에 영향을 준다고 할 수 있다.
 
 **< Feature Importance Visualization >**
+
 ![2-3-2](https://user-images.githubusercontent.com/80459520/133572730-5231b88d-2fb9-4fc7-a3a8-4fa78c7ce5a4.png)
 
 - <한 단위 증가함에 따라 승리할 확률이 높아지는 독립변수들의 중요도 순위>
