@@ -411,7 +411,7 @@ MID 포지션은 첫 억제기 파괴에 관여에 대한 기여도가 4위(18.6
     - <모델_1> 의 오브젝트에 대한 중요도 분석에 대한 Notebook
 - [user_cluster_analysis.ipynb](https://github.com/aeea-0605/lol-match-analysis-repo/blob/main/user_cluster_analysis.ipynb)
     - <모델_2> 의 분석을 위한 데이터 전처리 및 세분화
-    - <모델)2> 의 MID 데이터셋의 최종 군집 분석 모델에 대한 특성파악 및 회귀 분석에 대한 Notebook
+    - <모델_2> 의 MID 데이터셋의 최종 군집 분석 모델에 대한 특성파악 및 회귀 분석에 대한 Notebook
 - [colab_mid_col33_cluster.ipynb](https://github.com/aeea-0605/lol-match-analysis-repo/blob/main/colab_mid_col33_cluster.ipynb)
     - Colab
     - MID 데이터셋에 대한 1차 군집 분석 및 성능 평가
